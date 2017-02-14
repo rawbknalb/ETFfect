@@ -1,6 +1,6 @@
 import axios from "axios";
 import { browserHistory } from "react-router";
-import { AUTH_USER, UNAUTH_USER } from "./types";
+import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from "./types";
 const API_URL = "http://localhost:3090";
 
 export const signInUser = ({ email, password }) => dispatch => {
@@ -12,12 +12,16 @@ export const signInUser = ({ email, password }) => dispatch => {
       // - Update state to indicate user is authenticated
       dispatch({ type: AUTH_USER});
       // - Save the JWT Token
+      localStorage.setItem("item", res.data.token);
     })
-    .catch(() => {
+    .catch(res => {
       // If request is bad:
       // - Show an error to the user
+      authError("Ooops!");
     });
 };
+
+const authError = errorMessage => {type: AUTH_ERROR, payload: errorMessage}
 
 export const signUpUser = ({ email, password }) => dispatch => {
   // Submit email and password to the server
