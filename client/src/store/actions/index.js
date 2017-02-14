@@ -14,22 +14,23 @@ export const signInUser = ({ email, password }) => dispatch => {
       // - Save the JWT Token
       localStorage.setItem("item", res.data.token);
     })
-    .catch(res => {
+    .catch(() => {
       // If request is bad:
       // - Show an error to the user
-      authError("Ooops!");
+      dispatch(authError("Bad Login Info"));
     });
 };
 
-const authError = errorMessage => {type: AUTH_ERROR, payload: errorMessage}
+export const authError = errorMessage => {type: AUTH_ERROR, payload: errorMessage}
 
 export const signUpUser = ({ email, password }) => dispatch => {
   // Submit email and password to the server
   axios.post(`${API_URL}/signup`, { email, password });
   // If request is good:
   // - Update state to indicate user is authenticated
+  dispatch({ type: SIGNUP_USER});
   // - Save the JWT Token
-  // - Redirect to route '/portfolio'
+  localStorage.removeItem("item");
   // If request is bad:
   // - Show an error to the user
 };
