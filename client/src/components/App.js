@@ -15,10 +15,6 @@ import Dashboard from "./Dashboard";
 import Home from "./Home";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   //redirectAfterAuth = () =>
     // If user is authenticated and calls /sign
     // this.props.isAuthenticated ? <Redirect push to="/dashboard" /> : <SignIn />;
