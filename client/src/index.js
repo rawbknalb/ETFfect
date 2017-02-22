@@ -22,6 +22,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(reduxThunk))
 );
 
+// If JWT exists in localStorage - dispatch AUTH-USER action
 const token = localStorage.getItem("token");
 if (token) {
   store.dispatch({ type: "AUTH_USER" });
