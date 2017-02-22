@@ -17,17 +17,16 @@ import Home from "./Home";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.isAuthenticated = this.props.auth.isAuthenticated;
   }
 
   redirectAfterAuth = () =>
     // If user is authenticated and calls /sign
-    this.isAuthenticated ? <Redirect push to="/dashboard" /> : <SignIn />;
+    this.props.isAuthenticated ? <Redirect push to="/dashboard" /> : <SignIn />;
 
   redirectWhenAuthd = component =>
-    this.isAuthenticated ? <Redirect push to="/dashboard" /> : component;
+    this.props.isAuthenticated ? <Redirect push to="/dashboard" /> : component;
 
-  redirectWhenUnAthd = () => !this.isAuthenticated && <Redirect push to="/" />;
+  redirectWhenUnAthd = () => !this.props.isAuthenticated && <Redirect push to="/" />;
 
   render() {
     const { match } = this.props;
@@ -44,7 +43,7 @@ class App extends Component {
           <Route path="/signout" render={() => this.redirectWhenUnAthd()} />
           <ProtectedRoute
             path="/dashboard"
-            isAuthenticated={this.isAuthenticated}
+            isAuthenticated={this.props.isAuthenticated}
             component={<Dashboard />}
           />
         </div>
@@ -55,7 +54,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    isAuthenticated: state.auth.isAuthenticated
   };
 };
 
