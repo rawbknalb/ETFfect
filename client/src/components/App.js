@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-//import { AUTH_USER } from "../store/actions/types";
 import "../App.css";
 
 // React Router
