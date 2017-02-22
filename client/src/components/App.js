@@ -19,9 +19,9 @@ class App extends Component {
     super(props);
   }
 
-  redirectAfterAuth = () =>
+  //redirectAfterAuth = () =>
     // If user is authenticated and calls /sign
-    this.props.isAuthenticated ? <Redirect push to="/dashboard" /> : <SignIn />;
+    // this.props.isAuthenticated ? <Redirect push to="/dashboard" /> : <SignIn />;
 
   redirectWhenAuthd = component =>
     this.props.isAuthenticated ? <Redirect push to="/dashboard" /> : component;
@@ -35,7 +35,10 @@ class App extends Component {
         <Header />
         <div className="App">
           <Route exact path={match.url} component={Home} />
-          <Route path="/signin" render={() => this.redirectAfterAuth()} />
+          <Route 
+            path="/signin" 
+            render={() => this.redirectWhenAuthd(<SignIn />)} 
+          />
           <Route
             path="/signup"
             render={() => this.redirectWhenAuthd(<SignUp />)}
